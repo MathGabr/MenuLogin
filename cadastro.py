@@ -1,16 +1,27 @@
+from dataclasses import dataclass,asdict
+import json
 import hashlib
 
 def cadastrar_usuario():
-    #nome = str(input("Digite o seu nome completo: "))
-    email = input("Digite o seu endereço de e-mail: ")
-    senha = input("Digite a sua senha: ")
+    @dataclass
+    class Usuario:
+        login: str
+        senha: str
+        nome: str = None
 
-    
-    senha_criptografada = hashlib.sha256(senha.encode()).hexdigest()
+    email = str(input("Digite o seu endereço de e-mail: "))
+    password = str(input("Digite a sua senha: "))
 
-    with open('userCad.txt', 'w') as cadUsers:
-        cadUsers.write(f"{email}\n{senha_criptografada}\n")
+    senha_criptografada = hashlib.sha256(password.encode()).hexdigest()
+    usuario_obj = Usuario(login=email, senha= senha_criptografada)
+
+    lista_usuarios=[]
+    lista_usuarios.append(usuario_obj)
+
+    with open('cadastro.json', 'w') as arquivo:
+        lista_usuarios_dict = list(map(asdict, lista_usuarios))
+        lista_usuarios_json = json.dumps(lista_usuarios_dict, indent=4)
+        arquivo.write(lista_usuarios_json)
+        print("Usuário cadastrado com sucesso!")
             
         
-
-    print("Usuário cadastrado com sucesso!")
