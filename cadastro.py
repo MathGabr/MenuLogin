@@ -25,5 +25,7 @@ def cadastrar_usuario():
         lista_usuarios_json = json.dumps(lista_usuarios_dict, indent=4)
         arquivo.write(lista_usuarios_json)
         print("Usuário cadastrado com sucesso!\n")
+
+    return usuario_obj
             
         

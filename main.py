@@ -19,3 +19,4 @@ while True:
         break
     else:
         print("Opção inválida. Digite uma opção válida.")
+    
