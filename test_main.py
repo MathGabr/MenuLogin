@@ -4,13 +4,16 @@ from cadastro import *
 from login import *
 
 class MainTest(unittest.TestCase):
+    inputs = [
+            'ettore',
+            'senha',
+            'cachorro',
+            'gato'
+        ]
 
     @patch('builtins.input', lambda *args: 'ettore')
     def test_cadastrar_usuario(self):
-        inputs = iter([
-            'ettore',
-            'senha'
-        ])
+        inputs = iter(self.inputs)
         with patch('builtins.input', lambda *_: next(inputs)):
             usuario = cadastrar_usuario()
             self.assertEqual(usuario.login, 'ettore')
@@ -18,12 +21,7 @@ class MainTest(unittest.TestCase):
 
 
     def test_realizar_login(self):
-        inputs = iter([
-            'ettore',
-            'senha',
-            'doce',
-            'salgado'
-        ])
+        inputs = iter(self.inputs)
         with patch('builtins.input', lambda *_: next(inputs)):
             usuario = realizar_login()
             self.assertEqual(usuario.login, 'ettore')
